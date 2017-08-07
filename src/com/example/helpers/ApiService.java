@@ -46,7 +46,7 @@ public enum ApiService {
 
 	
 	protected String resource;
-	protected String endpoint = "http://localhost:8080/wineservices/index.php/";
+	protected String endpoint = "http://10.138.96.28:8080/wineservices/index.php/";
 	protected String url;
 	
 	private ApiService(String resource) {

@@ -9,4 +9,5 @@
     <string name="STATUS403">Your petition was refused.</string>
     <string name="STATUS408">Request timeout.</string>
     <string name="STATUS500">Internal Server Error.</string>
+    <string name="STATUS000">You had an error to try to do your request.</string>
 </resources>
