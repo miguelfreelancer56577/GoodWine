@@ -23,8 +23,6 @@ public class HeaderResponse {
     private Long status;
     @JsonProperty("message")
     private String message;
-    @JsonProperty("businessResponse")
-    private Object businessResponse;
 
     @JsonProperty("status")
     public Long getStatus() {
@@ -46,16 +44,6 @@ public class HeaderResponse {
         this.message = message;
     }
 
-    @JsonProperty("businessResponse")
-    public Object getBusinessResponse() {
-        return businessResponse;
-    }
-
-    @JsonProperty("businessResponse")
-    public void setBusinessResponse(Object businessResponse) {
-        this.businessResponse = businessResponse;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
@@ -63,7 +51,7 @@ public class HeaderResponse {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(status).append(message).append(businessResponse).toHashCode();
+        return new HashCodeBuilder().append(status).append(message).toHashCode();
     }
 
     @Override
@@ -75,7 +63,7 @@ public class HeaderResponse {
             return false;
         }
         HeaderResponse rhs = ((HeaderResponse) other);
-        return new EqualsBuilder().append(status, rhs.status).append(message, rhs.message).append(businessResponse, rhs.businessResponse).isEquals();
+        return new EqualsBuilder().append(status, rhs.status).append(message, rhs.message).isEquals();
     }
 
 }
