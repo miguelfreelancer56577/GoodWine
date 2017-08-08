@@ -5,12 +5,14 @@ import org.springframework.web.client.RestClientException;
 
 import com.example.goodwine.LoginActivity;
 import com.example.goodwine.R;
+import com.example.goodwine.admin.MainActivity;
 import com.example.wrapper.InfoUserWrapper;
 import com.example.beans.InfoUser;
 import com.example.beans.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -71,6 +73,8 @@ public class LoginService extends AsyncTask<User, Integer, Boolean> {
 				if(status.equalsIgnoreCase(ApiStatusCode.STATUS200.getStatusCode())){
 					msg.setText(ctx.getString(R.string.STATUS200));
 					INFOUSER = (InfoUser) infoUserWrapper.getBusinessResponse();
+					Intent fireIntent = new Intent(ctx, MainActivity.class);
+					ctx.startActivity(fireIntent);
 				}else if(status.equalsIgnoreCase(ApiStatusCode.STATUS406.getStatusCode())){
 					msg.setText(ctx.getString(R.string.STATUS406));
 					msg.show();
