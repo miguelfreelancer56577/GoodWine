@@ -1,10 +1,12 @@
 package com.example.goodwine.admin;
 
+import com.example.goodwine.LoginActivity;
 import com.example.goodwine.R;
 import com.example.goodwine.R.id;
 import com.example.goodwine.R.layout;
 import com.example.goodwine.R.menu;
 import com.example.goodwine.R.string;
+import com.example.helpers.LoginService;
 
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
@@ -103,7 +105,9 @@ public class MainActivity extends ActionBarActivity implements
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_logout) {
+			LoginService.INFOUSER = null;
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
