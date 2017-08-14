@@ -16,12 +16,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListRecords extends Fragment {
 	
 	public String[] records;
 	protected String logname = this.getClass().getSimpleName();
+	public ArrayAdapter<String> adapterPosition;
+	public ListView mPositionList;
 	
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -33,9 +37,9 @@ public class ListRecords extends Fragment {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+//    	mLeadsList.setAdapter(mLeadsAdapter);
 		View rootView = inflater.inflate(R.layout.fragment_main, container,false);
-		TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-		textView.setText("!");
+		mPositionList = (ListView) rootView.findViewById(R.id.position_list);
 		return rootView;
 	}
     
