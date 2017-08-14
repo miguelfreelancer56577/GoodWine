@@ -41,9 +41,9 @@ public class LoginService extends AsyncTask<User, Integer, Boolean> {
 	protected Boolean doInBackground(User... users) {
 		
 		User user = users[0]; 
-		ResponseEntityWine<User, InfoUserWrapper> responseEntityWine = new ResponseEntityWine<User, InfoUserWrapper>(apiService, user, InfoUserWrapper.class);
+		RestServiceLogin<User, InfoUserWrapper> restServiceLogin = new RestServiceLogin<User, InfoUserWrapper>(apiService, user, InfoUserWrapper.class);
 		try {
-			ResponseEntity<InfoUserWrapper> response = responseEntityWine.doRequest();
+			ResponseEntity<InfoUserWrapper> response = restServiceLogin.doRequest();
 			Log.d(logname, "Your petition was successful.");
 			infoUserWrapper = response.getBody();
 			return true;

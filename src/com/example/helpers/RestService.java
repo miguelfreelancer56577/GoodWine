@@ -1,39 +1,59 @@
 package com.example.helpers;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
-import com.example.beans.HeaderRequest;
-import com.example.beans.HeaderResponse;
-import com.example.beans.InfoUser;
-import com.example.beans.User;
-import com.example.goodwine.LoginActivity;
-import com.example.goodwine.R;
-import com.example.goodwine.admin.MainActivity;
 import com.example.wrapper.InfoUserWrapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.wrapper.ListPositionWrapper;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-public abstract class RestService extends AsyncTask<HeaderRequest, Integer, Boolean> {
-	
+public class RestService<T, E> extends RestTemplate{
+
+	protected ApiService apiService;
+	protected HttpMethod httpMethod;
+	protected HttpEntity<T> requestEntity;
+	protected Class<E> classResponse; 
+	protected final String logname;
 	protected Activity activity;
-	protected String logname;
-	protected ObjectMapper mp;
+	public boolean statusRequest;
 	
-	public RestService(Activity activity) {
-		super();
-		this.activity = activity;
-		logname = this.getClass().getSimpleName();
-		mp = new ObjectMapper();
+	public RestService(ApiService apiService,T entityRequest, Class<E> classResponse, Activity activity) {
+		this.apiService = apiService;
+		this.classResponse = classResponse;
+		httpMethod = HttpMethod.POST;
+        super.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestEntity = new HttpEntity<T>(entityRequest, requestHeaders);
+        logname = LoginService.class.getSimpleName();
+        this.activity = activity;
+        statusRequest = false;
 	}
-
-	protected boolean doStatusOperation(HttpStatus status){
+	
+	public ResponseEntity<E> doRequest() throws Exception{
+		ResponseEntity<E> response = null;
+		try {
+			response = this.exchange(apiService.getUrl(), httpMethod,requestEntity, classResponse);
+			Log.d(logname, "Your petition was successful.");
+			doStatusOperation(response.getStatusCode());
+		} catch (RestClientException e) {
+			doStatusOperation(getStatus(e.getMessage()));
+			e.printStackTrace();
+			Log.e(logname, e.getMessage());
+		}
+		return response;
+	}
+	
+protected boolean doStatusOperation(HttpStatus status){
 		
 		boolean isOK = false;
 		
@@ -44,6 +64,7 @@ public abstract class RestService extends AsyncTask<HeaderRequest, Integer, Bool
 		
 			case OK:
 					isOK = true;
+					statusRequest = true;
 			break;
 					
 			case REQUEST_TIMEOUT:

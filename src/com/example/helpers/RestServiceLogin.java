@@ -9,14 +9,14 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-public class ResponseEntityWine<T, E> extends RestTemplate{
+public class RestServiceLogin<T, E> extends RestTemplate{
 	
 	protected ApiService apiService;
 	protected HttpMethod httpMethod;
 	protected HttpEntity<T> requestEntity;
 	protected Class<E> classResponse; 
 	
-	public ResponseEntityWine(ApiService apiService,T entityRequest, Class<E> classResponse) {
+	public RestServiceLogin(ApiService apiService,T entityRequest, Class<E> classResponse) {
 		this.apiService = apiService;
 		this.classResponse = classResponse;
 		httpMethod = HttpMethod.POST;
