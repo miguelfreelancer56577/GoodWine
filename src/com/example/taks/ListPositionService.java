@@ -38,10 +38,6 @@ public class ListPositionService extends GenericAsyncTask {
 			headerRequest.setToken(LoginService.INFOUSER.getUser().getToken());
 		}
 		
-		headerRequest.setIdUser("1");
-		headerRequest.setToken("Y65hraSOnp+SnaScYmht");
-		headerRequest.setBusinessRequest(null);
-		
 		RestService<HeaderRequest, ListPositionWrapper> restService = new RestService<HeaderRequest, ListPositionWrapper>(apiService, headerRequest, ListPositionWrapper.class, listRecords.getActivity());
 		try {
 			ResponseEntity<ListPositionWrapper> response = restService.doRequest();
