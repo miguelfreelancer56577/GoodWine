@@ -17,7 +17,7 @@ import com.example.wrapper.ListPositionWrapper;
 
 public class ListPositionService extends GenericAsyncTask {
 	
-	protected ListPositionWrapper listPositionWrapper;
+	public ListPositionWrapper listPositionWrapper;
 	protected ListRecords listRecords;
 	protected String logname;
 	protected ApiService apiService; 
@@ -67,12 +67,9 @@ public class ListPositionService extends GenericAsyncTask {
 			int cont = 0; 
 			
 			for(Position position: listPositionWrapper.getBusinessResponse()){
-				listRecords.records[cont] = position.getNamePosition();
-				cont ++;
+				listRecords.adapterPosition.add(position.getNamePosition());
 			}
 			
-			listRecords.adapterPosition = new ArrayAdapter<String>(listRecords.getActivity(),android.R.layout.simple_list_item_1,listRecords.records);
-			listRecords.mPositionList.setAdapter(listRecords.adapterPosition);
 			
 		}else{
 			Log.d(logname, "You had an error in your petition.");

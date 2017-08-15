@@ -28,18 +28,19 @@ public class ListRecords extends Fragment {
 	public ListView mPositionList;
 	
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ListPositionService listPositionService = new ListPositionService(this, ApiService.POSITION_CATALOG_GETALL);
-        listPositionService.execute(new HeaderRequest());
+		ListPositionService listPositionService = new ListPositionService(this, ApiService.POSITION_CATALOG_GETALL);
+		listPositionService.execute(new HeaderRequest());
     }
     
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-//    	mLeadsList.setAdapter(mLeadsAdapter);
 		View rootView = inflater.inflate(R.layout.fragment_main, container,false);
 		mPositionList = (ListView) rootView.findViewById(R.id.position_list);
+		adapterPosition = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1);
+		mPositionList.setAdapter(adapterPosition);
 		return rootView;
 	}
     
@@ -47,7 +48,7 @@ public class ListRecords extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		((MainActivity) activity).onSectionAttached(getArguments().getInt(
-				((MainActivity) activity).ARG_SECTION_NUMBER));
+				MainActivity.ARG_SECTION_NUMBER));
 	}
 
 }

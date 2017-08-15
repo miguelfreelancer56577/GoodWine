@@ -71,9 +71,9 @@ public class MainActivity extends ActionBarActivity implements
 		
 		switch (position) {
 		case 1:
-				ListRecords listRecords = new ListRecords(); 
-				fragmentManager.beginTransaction().replace(R.id.container,listRecords).commit();
+				ListRecords listRecords = new ListRecords();
 				listRecords.setArguments(args);
+				fragmentManager.beginTransaction().replace(R.id.container,listRecords).commit();
 			break;
 
 		default:
