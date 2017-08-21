@@ -7,6 +7,15 @@
     <string name="STATUS406">Your user or password are incorrect.</string>
     
     <string name="STATUS200">Your petition has had succeeded.</string>
+    <string name="STATUS201">Created.</string>
+	<string name="STATUS202">Accepted</string>
+	<string name="STATUS203">Non-authoritative Information</string>
+	<string name="STATUS204">No Content</string>
+	<string name="STATUS205">Reset Content</string>
+	<string name="STATUS206">Partial Content</string>
+	<string name="STATUS207">Multi-Status</string>
+	<string name="STATUS208">Already Reported</string>
+	<string name="STATUS226">IM Used</string>
     
     <string name="STATUS404">Record not found.</string>
     <string name="STATUS400">You did a bad request.</string>

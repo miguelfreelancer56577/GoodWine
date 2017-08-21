@@ -12,9 +12,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.wrapper.InfoUserWrapper;
 import com.example.wrapper.ListPositionWrapper;
+import com.example.exception.RestWineException;
+import com.example.goodwine.R;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 public class RestService<T, E> extends RestTemplate{
 
@@ -44,16 +47,16 @@ public class RestService<T, E> extends RestTemplate{
 		try {
 			response = this.exchange(apiService.getUrl(), httpMethod,requestEntity, classResponse);
 			Log.d(logname, "Your petition was successful.");
-			doStatusOperation(response.getStatusCode());
+			statusRequest = true;
 		} catch (RestClientException e) {
-			doStatusOperation(getStatus(e.getMessage()));
+			isbadOperation(getStatus(e.getMessage()));
 			e.printStackTrace();
 			Log.e(logname, e.getMessage());
 		}
 		return response;
 	}
 	
-protected boolean doStatusOperation(HttpStatus status){
+protected boolean isbadOperation(HttpStatus status) throws Exception{
 		
 		boolean isOK = false;
 		
@@ -61,17 +64,11 @@ protected boolean doStatusOperation(HttpStatus status){
 			return isOK;
 		
 		switch (status) {
-		
-			case OK:
-					isOK = true;
-					statusRequest = true;
-			break;
-					
 			case REQUEST_TIMEOUT:
-			break;
+					throw new RestWineException(true, activity.getString(R.string.STATUS408), HttpStatus.REQUEST_TIMEOUT);
 			
 			case INTERNAL_SERVER_ERROR:
-			break;
+				throw new RestWineException(true, activity.getString(R.string.STATUS500), HttpStatus.INTERNAL_SERVER_ERROR);
 			
 			case UNAUTHORIZED:
 				LoginService.INFOUSER = null;
@@ -101,6 +98,10 @@ protected boolean doStatusOperation(HttpStatus status){
 			int status = Integer.parseInt(massage.substring(0, 3));
 			concurrentStatus = getStatusFromInt(status);
 		} catch (NumberFormatException e) {
+			String error = massage.substring(0, 3);
+			if(error.equalsIgnoreCase("I/O")){
+				concurrentStatus = getStatusFromInt(408);
+			}
 			Log.e(logname, e.getMessage());
 		}
 		
@@ -113,10 +114,6 @@ protected boolean doStatusOperation(HttpStatus status){
 		
 		switch (status) {
 			
-			case 200:
-				thisStatus = HttpStatus.OK;
-				break;
-					
 			case 408:
 				thisStatus = HttpStatus.REQUEST_TIMEOUT;
 				break;
