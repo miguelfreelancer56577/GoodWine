@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.beans.HeaderRequest;
 import com.example.beans.Position;
-import com.example.goodwine.admin.ListRecords;
+import com.example.exception.RestWineException;
+import com.example.goodwine.admin.positioncatalog.ListRecords;
 import com.example.helpers.ApiService;
 import com.example.helpers.LoginService;
 import com.example.helpers.RestService;
@@ -23,6 +25,7 @@ public class ListPositionService extends GenericAsyncTask {
 	protected ApiService apiService; 
 
 	public ListPositionService(ListRecords listRecords, ApiService apiService) {
+		super(listRecords.getActivity());
 		logname = this.getClass().getSimpleName();
 		this.listRecords = listRecords;
 		this.apiService = apiService;
@@ -46,8 +49,11 @@ public class ListPositionService extends GenericAsyncTask {
 				Log.d(logname, "Your petition was successful.");
 				return true;
 			}
-		} catch (Exception e) {
+		} catch (RestWineException e) {
+			restWineException = e;
 			e.printStackTrace();
+			Log.e(logname, e.getMessage());
+		} catch (Exception e) {
 			Log.e(logname, e.getMessage());
 		}
 		return false;
@@ -55,9 +61,8 @@ public class ListPositionService extends GenericAsyncTask {
 
 	@Override
 	protected void onPostExecute(Boolean result){
-		
+		super.onPostExecute(result);
 		listRecords.records = null;
-		
 		if(result){
 			
 			listRecords.records = new String[listPositionWrapper.getBusinessResponse().size()];
@@ -69,10 +74,6 @@ public class ListPositionService extends GenericAsyncTask {
 			for(Position position: listPositionWrapper.getBusinessResponse()){
 				listRecords.adapterPosition.add(position.getNamePosition());
 			}
-			
-			
-		}else{
-			Log.d(logname, "You had an error in your petition.");
 		}
 	}
 
