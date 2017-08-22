@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity implements
 		case 1:
 				ListRecords listRecords = new ListRecords();
 				listRecords.setArguments(args);
-				fragmentManager.beginTransaction().replace(R.id.container,listRecords).commit();
+				fragmentManager.beginTransaction().replace(R.id.container,listRecords).addToBackStack(null).commit();
 			break;
 
 		default:
