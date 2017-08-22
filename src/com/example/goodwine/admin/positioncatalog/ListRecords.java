@@ -49,8 +49,6 @@ public class ListRecords extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-		listPositionService = new ListPositionService(this, ApiService.POSITION_CATALOG_GETALL);
-		listPositionService.execute(new HeaderRequest());
     }
     
     @Override
@@ -60,6 +58,8 @@ public class ListRecords extends Fragment {
 		mPositionList = (ListView) rootView.findViewById(R.id.position_list);
 		adapterPosition = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1);
 		mPositionList.setAdapter(adapterPosition);
+		listPositionService = new ListPositionService(this, ApiService.POSITION_CATALOG_GETALL);
+		listPositionService.execute(new HeaderRequest());
 		return rootView;
 	}
     
@@ -77,7 +77,7 @@ public class ListRecords extends Fragment {
 				try {
 					args.putInt(ConcurrentRecord.SEARCH, Integer.parseInt(concurrentPosicion.getIdPosition()));
 					concurrentRecord.setArguments(args);
-					fragmentManager.beginTransaction().replace(R.id.container,concurrentRecord).commit();
+					fragmentManager.beginTransaction().replace(R.id.container,concurrentRecord).addToBackStack(null).commit();
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 					msg.setText("it had an error to do your request.");
