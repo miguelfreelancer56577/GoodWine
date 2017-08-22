@@ -9,5 +9,12 @@
          https://developer.android.com/design/patterns/navigation-drawer.html
     -->
     <dimen name="navigation_drawer_width">240dp</dimen>
+    
+    
+    <!-- 
+    	my custom dimensions 
+   	-->
+    <dimen name="scroll_for_fragment">45dp</dimen>
+    
 
 </resources>
