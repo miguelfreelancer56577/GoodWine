@@ -63,7 +63,7 @@ public class ListPositionService extends GenericAsyncTask {
 	protected void onPostExecute(Boolean result){
 		super.onPostExecute(result);
 		listRecords.records = null;
-		if(result){
+		if(result && listPositionWrapper.getBusinessResponse() != null){
 			
 			listRecords.records = new String[listPositionWrapper.getBusinessResponse().size()];
 			

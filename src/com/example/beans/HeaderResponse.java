@@ -23,6 +23,8 @@ public class HeaderResponse {
     private Long status;
     @JsonProperty("message")
     private String message;
+    @JsonProperty("businessResponse")
+	private Object businessResponse;
 
     @JsonProperty("status")
     public Long getStatus() {
@@ -43,6 +45,16 @@ public class HeaderResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    @JsonProperty("businessResponse")
+	public Object getBusinessResponse() {
+		return businessResponse;
+	}
+	
+	@JsonProperty("businessResponse")
+	public void setBusinessResponse(Object businessResponse) {
+		this.businessResponse = businessResponse;
+	}
 
     @Override
     public String toString() {

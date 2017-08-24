@@ -37,7 +37,7 @@ public class RestService<T, E> extends RestTemplate{
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestEntity = new HttpEntity<T>(entityRequest, requestHeaders);
-        logname = LoginService.class.getSimpleName();
+        logname = this.getClass().getSimpleName();
         this.activity = activity;
         statusRequest = false;
 	}
