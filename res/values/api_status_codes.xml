@@ -21,7 +21,7 @@
     <string name="STATUS400">You did a bad request.</string>
     
     <string name="STATUS405">You do not have access to this method.</string>
-    <string name="STATUS403">Your petition was refused.</string>
+    <string name="STATUS403">You already have a record with the same name.</string>
     <string name="STATUS408">Request timeout.</string>
     <string name="STATUS500">Internal Server Error.</string>
     

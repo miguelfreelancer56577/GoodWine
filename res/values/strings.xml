@@ -17,6 +17,10 @@
     <string name="delete">Delete</string>
     <string name="updete">Update</string>
     <string name="create">Create</string>
+    <string name="isOkDeleted">The record was deleted successfully.</string>
+    <string name="isErrorDeleted">It had an error to try to delete the record.</string>
+    <string name="isOkUpdate">The record was updated successfully.</string>
+    <string name="isErrorUpdate">It had an error to try to updated the record.</string>
     
     <!-- options to the admin menu -->
     <string name="position_catalog">Position Catalog</string>
